@@ -7,12 +7,13 @@
 </head>
 
 <body>
-  <button data-motorcylce="Kawasaki">Kawasaki</button>
-  <button data-motorcycle="Honda">Honda</button>
-  <button data-motorcycle="Yamaha">Yamaha</button>
-  <button data-motorcycle="Harley">Harley</button>
-  <button data-motorcycle="Suzuki">Suzuki</button>
-  <div id="motoview"></div>
+  <div id="motoview">
+    <button data-motorcylce="Kawasaki">Kawasaki</button>
+    <button data-motorcycle="Honda">Honda</button>
+    <button data-motorcycle="Yamaha">Yamaha</button>
+    <button data-motorcycle="Harley">Harley</button>
+    <button data-motorcycle="Suzuki">Suzuki</button>
+  </div>
   <form role="form">
     <form id="bike-form">
       <label for="name-input">Add your bike</label>
@@ -24,77 +25,7 @@
   <div id="gifs-appear-here">
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    var topics = ["Yamaha", "Honda", "Harley", "Kawasaki", "Suzuki"]
-
-
-
-function makeButtons() {  //generates buttons
-
-      $("#motoview").empty();
-
-      for (var i = 0; i < topics.length; i++) {
-
-
-        var a = $("<button>");
-        a.addClass("motorcycle");
-        a.attr("data-motorcycle", topics[i]);
-        a.text(topics[i]);
-        $("#motoview").append(a);
-      }
-    }
-
-    $("#add-bike").on("click", function (event) {
-
-      event.preventDefault();
-
-      var topic = $("#name-input").val().trim();
-      console.log(topic);
-      topics.push(topic);
-      console.log(topics);
-
-
-
-      
-      makeButtons();
-      
-    });
-
-    $("button").on("click", function () { //making buttons connect
-      var motorcycle = $(this).attr("data-motorcycle");
-      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-        motorcycle + "&api_key=VQQWbrTPXO4uxcgqUPk295whNafMY3iF";
-
-      $.ajax({
-        url: queryURL,
-        method: "GET"
-      }).then(function (response) {
-        var results = response.data;
-
-
-        for (var i = 0; i < results.length; i++) {
-          var gifDiv = $("<div>");
-
-          var rating = results[i].rating;
-
-          var p = $("<p>").text("Rating: " + rating);
-
-          var motorcycleImage = $("<img>");
-          motorcycleImage.attr("src", results[i].images.fixed_height.url);
-
-          gifDiv.prepend(p);
-          gifDiv.prepend(motorcycleImage);
-
-          $("#gifs-appear-here").prepend(gifDiv);
-        }
-        console.log(response);
-
-
-      });
-
-    });
-    
-  </script>
+  <script type="text/javascript" src="gif.js"></script>
 </body>
 
 </html>
